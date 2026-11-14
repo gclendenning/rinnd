@@ -16,8 +16,6 @@ on:
     - README.rst
 permissions:
   contents: read
-env:
-  RUST_TOOLCHAIN: "1.89.0"
 concurrency:
   # Cancel if a new commit is made and things are still running
   group: tests-${{ github.workflow }}-${{ github.ref }}
@@ -32,9 +30,7 @@ jobs:
       with:
         persist-credentials: false
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@599c45df1a24c1c63ae1129a7e59f46654b8fb66 # v1.89.0
-      with:
-        toolchain: ${{ env.RUST_TOOLCHAIN }}
+      uses: dtolnay/rust-toolchain@599c45df1a24c1c63ae1129a7e59f46654b8fb66 # 1.89.0
     - name: Run Cargo tests
       # The extension crate needs libpython to link a native test executable.
       # Exercise its Python API in python-tests instead.
@@ -62,9 +58,7 @@ jobs:
       with:
         python-version: "${{ matrix.python-version }}"
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@599c45df1a24c1c63ae1129a7e59f46654b8fb66 # v1.89.0
-      with:
-        toolchain: ${{ env.RUST_TOOLCHAIN }}
+      uses: dtolnay/rust-toolchain@599c45df1a24c1c63ae1129a7e59f46654b8fb66 # 1.89.0
     - name: Install package and dependencies
       run: |-
         uv venv
